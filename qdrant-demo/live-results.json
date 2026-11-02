@@ -1,0 +1,72 @@
+{
+  "qdrant": "1.20.0",
+  "syntheticData": true,
+  "steps": [
+    {
+      "step": "1. Create 2-dimensional cosine collection",
+      "result": true
+    },
+    {
+      "step": "2. Upsert synthetic documents",
+      "result": {
+        "operation_id": 1,
+        "status": "completed"
+      }
+    },
+    {
+      "step": "3. Similarity search: document 1 ranks first",
+      "result": [
+        {
+          "id": 1,
+          "version": 1,
+          "score": 1,
+          "payload": {
+            "kind": "guide",
+            "text": "Qdrant REST integration"
+          }
+        },
+        {
+          "id": 2,
+          "version": 1,
+          "score": 0,
+          "payload": {
+            "kind": "note",
+            "text": "Unrelated document"
+          }
+        }
+      ]
+    },
+    {
+      "step": "4. Payload filter returns only document 2",
+      "result": [
+        {
+          "id": 2,
+          "version": 1,
+          "score": 0,
+          "payload": {
+            "kind": "note",
+            "text": "Unrelated document"
+          }
+        }
+      ]
+    },
+    {
+      "step": "5. Delete document 1; only document 2 remains",
+      "result": [
+        {
+          "id": 2,
+          "version": 1,
+          "score": 0,
+          "payload": {
+            "kind": "note",
+            "text": "Unrelated document"
+          }
+        }
+      ]
+    },
+    {
+      "step": "6. Delete isolated collection. All assertions passed.",
+      "result": true
+    }
+  ]
+}
